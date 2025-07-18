@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>EA Sports FC 25 - Reserva Interactiva</title>
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+        }
+
+        nav {
+            background-color: #00ff99;
+            padding: 15px;
+            text-align: center;
+        }
+
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        header {
+            background-image: url('https://cdn.wallpapersafari.com/36/13/q3N1yV.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 20px;
+            text-align: center;
+            color: #fff;
+        }
+
+        header h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 8px #000;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        section {
+            margin-bottom: 60px;
+        }
+
+        h2 {
+            color: #00ff99;
+        }
+
+        .gallery {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .gallery img {
+            width: 300px;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+
+        .formulario {
+            background-color: #1a1a1a;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0,255,153,0.3);
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            color: #ccc;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: none;
+            border-radius: 8px;
+            background-color: #333;
+            color: white;
+        }
+
+        .btn {
+            background-color: #00ff99;
+            color: #000;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #00cc7a;
+        }
+
+        #resumen {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #222;
+            border-left: 4px solid #00ff99;
+            display: none;
+        }
+
+        footer {
+            background-color: #111;
+            color: #888;
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#galeria">Galería</a>
+        <a href="#reserva">Reserva</a>
+    </nav>
+
+    <header>
+        <h1>EA Sports FC 25</h1>
+        <p>Domina el fútbol con la experiencia más realista del momento</p>
+    </header>
+
+    <main>
+        <section id="galeria" class="gallery">
+            <h2>🎮 Imágenes del juego</h2>
+            <img src="https://pbs.twimg.com/media/F8o9DsJXoAAKtxR.jpg" alt="Gameplay EA FC 25">
+            <img src="https://pbs.twimg.com/media/F6RrWbYXwAApMJy.jpg" alt="Jugadores EA FC">
+            <img src="https://pbs.twimg.com/media/F8o9FaHXIAAKT6i.jpg" alt="Estadio EA FC 25">
+        </section>
+
+        <section id="reserva" class="formulario">
+            <h2>📝 Reserva tu copia</h2>
+            <form id="reservaForm">
+                <label for="nombre">Nombre completo:</label>
+                <input type="text" id="nombre" required>
+
+                <label for="email">Correo electrónico:</label>
+                <input type="email" id="email" required>
+
+                <label for="plataforma">Plataforma:</label>
+                <select id="plataforma" required>
+                    <option>PlayStation 5</option>
+                    <option>Xbox Series X|S</option>
+                    <option>PC</option>
+                </select>
+
+                <label for="tarjeta">Número de tarjeta (16 dígitos):</label>
+                <input type="text" id="tarjeta" maxlength="16" required>
+
+                <label for="expiracion">Fecha de vencimiento:</label>
+                <input type="month" id="expiracion" required>
+
+                <label for="cvv">Código CVV:</label>
+                <input type="password" id="cvv" maxlength="4" required>
+
+                <button type="submit" class="btn" id="botonReservar">Reservar Ahora</button>
+            </form>
+
+            <div id="resumen"></div>
+        </section>
+    </main>
+
+    <footer>
+        Fan Page no oficial de EA Sports FC 25 | Interfaz interactiva creada por fans | &copy; 2025
+    </footer>
+
+    <script>
+        const form = document.getElementById("reservaForm");
+        const resumen = document.getElementById("resumen");
+        const boton = document.getElementById("botonReservar");
+
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const nombre = document.getElementById("nombre").value;
+            const email = document.getElementById("email").value;
+            const plataforma = document.getElementById("plataforma").value;
+            const tarjeta = document.getElementById("tarjeta").value;
+
+            // Validación básica
+            if (tarjeta.length !== 16 || isNaN(tarjeta)) {
+                alert("Número de tarjeta inválido");
+                return;
+            }
+
+            // Mostrar resumen
+            resumen.style.display = "block";
+            resumen.innerHTML = `
+                <h3>✅ ¡Reserva confirmada!</h3>
+                <p><strong>Nombre:</strong> ${nombre}</p>
+                <p><strong>Correo:</strong> ${email}</p>
+                <p><strong>Plataforma:</strong> ${plataforma}</p>
+                <p><strong>Tarjeta terminada en:</strong> **** **** **** ${tarjeta.slice(-4)}</p>
+                <p>Recibirás un correo de confirmación pronto.</p>
+            `;
+
+            boton.textContent = "¡Reservado!";
+            boton.disabled = true;
+        });
+    </script>
+
+</body>
+</html>
